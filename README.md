@@ -1,6 +1,6 @@
 # Mandy's Q&A Chatbot for Course Materials
 
-A powerful Q&A chatbot built by **Mandy** using Python, Gemini 1.5 Pro API, and LangChain that processes course PDFs and provides intelligent answers based on the content.
+A powerful Q&A chatbot **by Mandy** using Python, Gemini 1.5 Pro API, and LangChain that processes course PDFs and provides intelligent answers based on the content.
 
 ## Features
 
