@@ -1,4 +1,4 @@
-"""Main application entry point for the Q&A chatbot."""
+"""Mandy's Q&A Chatbot - Main application entry point."""
 
 import os
 import sys

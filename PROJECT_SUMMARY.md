@@ -1,8 +1,8 @@
-# Q&A Chatbot Project Summary
+# Mandy's Q&A Chatbot Project Summary
 
 ## 🎯 **Project Overview**
 
-Successfully built a comprehensive Q&A chatbot using Python, Gemini 1.5 Pro API, and LangChain that processes course PDFs and provides intelligent answers with 85% manual QA accuracy.
+Successfully built by **Mandy** - a comprehensive Q&A chatbot using Python, Gemini 1.5 Pro API, and LangChain that processes course PDFs and provides intelligent answers with 85% manual QA accuracy.
 
 ## 📁 **Project Structure**
 

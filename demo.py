@@ -246,7 +246,7 @@ def main():
     """Main demo function."""
     setup_logging()
     
-    print("🚀 Q&A Chatbot Demo - Built with Gemini 1.5 Pro & LangChain")
+    print("🚀 Mandy's Q&A Chatbot Demo - Built with Gemini 1.5 Pro & LangChain")
     print("=" * 60)
     
     # Check if API key is set

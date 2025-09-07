@@ -1,4 +1,4 @@
-"""Streamlit web interface for the Q&A chatbot."""
+"""Mandy's Q&A Chatbot - Streamlit web interface."""
 
 import streamlit as st
 import sys
@@ -57,7 +57,7 @@ def main():
         layout="wide"
     )
     
-    st.title("🤖 Q&A Chatbot for Course Materials")
+    st.title("🤖 Mandy's Q&A Chatbot for Course Materials")
     st.markdown("Ask questions about your course materials using AI-powered search and retrieval.")
     
     # Initialize chatbot

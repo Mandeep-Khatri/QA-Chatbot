@@ -169,7 +169,7 @@ def show_system_info():
 
 def main():
     """Main test function."""
-    print("🔍 Q&A Chatbot System Test")
+    print("🔍 Mandy's Q&A Chatbot System Test")
     print("=" * 50)
     
     # Run all tests
