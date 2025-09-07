@@ -1,6 +1,43 @@
 # Mandy's Q&A Chatbot for Course Materials
 
-A powerful Q&A chatbot **by Mandy** using Python, Gemini 1.5 Pro API, and LangChain that processes course PDFs and provides intelligent answers based on the content.
+A powerful Q&A chatbot **by Mandy** using Python, Gemini 1.5 Flash API, and LangChain that processes course PDFs and provides intelligent answers based on the content.
+
+## 🚀 Quick Start - Working Chatbot
+
+**Ready to use immediately!** This repository includes a fully functional chatbot that you can run right now:
+
+### 1. Get Your API Key
+- Visit [AI Studio](https://makersuite.google.com/app/apikey)
+- Create a new API key
+- Copy the key (starts with `AIza...`)
+
+### 2. Configure the Chatbot
+```bash
+# Edit the config.env file
+GEMINI_API_KEY=your_actual_api_key_here
+```
+
+### 3. Run the Working Chatbot
+```bash
+# Install dependencies
+pip install streamlit google-generativeai python-dotenv
+
+# Run the chatbot
+streamlit run working_chatbot.py
+```
+
+### 4. Open in Browser
+- Go to: **http://localhost:8501**
+- See **"Google AI Studio by Mandy"** branding
+- Start asking questions immediately!
+
+## ✨ What You Get
+
+- ✅ **Real AI responses** using Gemini 1.5 Flash
+- ✅ **"Google AI Studio by Mandy"** branding throughout
+- ✅ **Chat history** and conversation management
+- ✅ **Higher free tier limits** (1,500+ requests/day)
+- ✅ **No complex setup** - just add your API key and run!
 
 ## Features
 
@@ -111,10 +148,19 @@ python main.py --search "machine learning algorithms"
 
 ### 4. Web Interface
 
-Launch the Streamlit web app:
+**Option A: Working Chatbot (Recommended)**
+```bash
+streamlit run working_chatbot.py
+```
 
+**Option B: Full PDF Processing Version**
 ```bash
 streamlit run streamlit_app.py
+```
+
+**Option C: Simple Demo (No Dependencies)**
+```bash
+streamlit run simple_streamlit_app.py
 ```
 
 ### 5. Programmatic Usage
@@ -165,7 +211,10 @@ chatbot/
 │   └── vector_db/      # Vector database storage
 ├── logs/               # Application logs
 ├── main.py             # Command-line interface
-├── streamlit_app.py    # Web interface
+├── streamlit_app.py    # Full web interface (with PDF processing)
+├── working_chatbot.py  # 🚀 Working chatbot (ready to use!)
+├── simple_streamlit_app.py # Simple demo version
+├── config.env          # API key configuration
 ├── requirements.txt    # Dependencies
 ├── config.env.example  # Environment configuration template
 └── README.md
@@ -209,6 +258,27 @@ chatbot/
 - **Accuracy**: 85% manual QA accuracy
 - **Response Time**: <3 seconds for most queries
 - **Memory Usage**: Efficient chunking reduces memory footprint
+
+## 🎯 Available Versions
+
+### 1. **working_chatbot.py** (Recommended)
+- ✅ **Ready to use immediately**
+- ✅ **Real AI responses** with Gemini 1.5 Flash
+- ✅ **"Google AI Studio by Mandy"** branding
+- ✅ **Higher free tier limits** (1,500+ requests/day)
+- ✅ **Chat history** and conversation management
+- ✅ **No complex setup** required
+
+### 2. **streamlit_app.py** (Full Version)
+- 📚 **PDF processing** with PyMuPDF
+- 🔍 **Vector search** and embeddings
+- 📊 **Advanced features** for course materials
+- ⚙️ **Requires more setup** and dependencies
+
+### 3. **simple_streamlit_app.py** (Demo)
+- 🎮 **Demo interface** without dependencies
+- 📱 **Shows features** and setup status
+- 🚫 **No real AI responses** (demo only)
 
 ## Troubleshooting
 
