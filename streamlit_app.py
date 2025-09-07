@@ -52,19 +52,21 @@ def initialize_chatbot():
 def main():
     """Main Streamlit application."""
     st.set_page_config(
-        page_title="Q&A Chatbot",
+        page_title="Google AI Studio by Mandy",
         page_icon="🤖",
         layout="wide"
     )
     
-    st.title("🤖 Mandy's Q&A Chatbot for Course Materials")
-    st.markdown("Ask questions about your course materials using AI-powered search and retrieval.")
+    st.title("🤖 Google AI Studio by Mandy")
+    st.markdown("**Mandy's Q&A Chatbot for Course Materials** - Ask questions about your course materials using AI-powered search and retrieval.")
     
     # Initialize chatbot
     chatbot, vector_store = initialize_chatbot()
     
     # Sidebar
     with st.sidebar:
+        st.header("🤖 Google AI Studio by Mandy")
+        st.markdown("---")
         st.header("📊 System Information")
         
         # Get system info
