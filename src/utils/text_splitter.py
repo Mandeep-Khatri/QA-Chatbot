@@ -1,9 +1,22 @@
 """Text splitting and chunking utilities."""
 
-import tiktoken
 from typing import List, Dict, Optional
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from loguru import logger
+import logging
+
+# Try to import optional dependencies
+try:
+    import tiktoken
+    TIKTOKEN_AVAILABLE = True
+except ImportError:
+    TIKTOKEN_AVAILABLE = False
+
+try:
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
+    LANGCHAIN_AVAILABLE = True
+except ImportError:
+    LANGCHAIN_AVAILABLE = False
+
+logger = logging.getLogger(__name__)
 
 
 class TextSplitter:
@@ -26,19 +39,27 @@ class TextSplitter:
         self.model_name = model_name
         
         # Initialize tokenizer for accurate token counting
-        try:
-            self.tokenizer = tiktoken.encoding_for_model(model_name)
-        except KeyError:
-            # Fallback to cl100k_base encoding
-            self.tokenizer = tiktoken.get_encoding("cl100k_base")
+        if TIKTOKEN_AVAILABLE:
+            try:
+                self.tokenizer = tiktoken.encoding_for_model(model_name)
+            except KeyError:
+                # Fallback to cl100k_base encoding
+                self.tokenizer = tiktoken.get_encoding("cl100k_base")
+        else:
+            self.tokenizer = None
+            logger.warning("tiktoken not available, using character-based estimation")
         
-        # Initialize LangChain text splitter
-        self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=chunk_size,
-            chunk_overlap=chunk_overlap,
-            length_function=len,
-            separators=["\n\n", "\n", " ", ""]
-        )
+        # Initialize LangChain text splitter if available
+        if LANGCHAIN_AVAILABLE:
+            self.text_splitter = RecursiveCharacterTextSplitter(
+                chunk_size=chunk_size,
+                chunk_overlap=chunk_overlap,
+                length_function=len,
+                separators=["\n\n", "\n", " ", ""]
+            )
+        else:
+            self.text_splitter = None
+            logger.warning("langchain not available, using simple text splitting")
     
     def split_text(self, text: str, metadata: Optional[Dict] = None) -> List[Dict[str, any]]:
         """
@@ -55,8 +76,12 @@ class TextSplitter:
             logger.warning("Empty text provided for splitting")
             return []
         
-        # Split text using LangChain
-        chunks = self.text_splitter.split_text(text)
+        # Split text using available method
+        if self.text_splitter:
+            chunks = self.text_splitter.split_text(text)
+        else:
+            # Simple fallback splitting
+            chunks = self._simple_split_text(text)
         
         # Add metadata to each chunk
         result = []
@@ -72,6 +97,38 @@ class TextSplitter:
         
         logger.info(f"Split text into {len(result)} chunks")
         return result
+    
+    def _simple_split_text(self, text: str) -> List[str]:
+        """Simple text splitting fallback."""
+        chunks = []
+        start = 0
+        
+        while start < len(text):
+            end = start + self.chunk_size
+            
+            # Try to break at sentence boundary
+            if end < len(text):
+                # Look for sentence endings
+                for i in range(end, max(start + self.chunk_size // 2, start), -1):
+                    if text[i] in '.!?':
+                        end = i + 1
+                        break
+                else:
+                    # Look for paragraph break
+                    for i in range(end, max(start + self.chunk_size // 2, start), -1):
+                        if text[i] == '\n':
+                            end = i + 1
+                            break
+            
+            chunk = text[start:end].strip()
+            if chunk:
+                chunks.append(chunk)
+            
+            start = end - self.chunk_overlap
+            if start >= len(text):
+                break
+        
+        return chunks
     
     def split_pdf_pages(self, pdf_data: Dict[str, any]) -> List[Dict[str, any]]:
         """
@@ -121,7 +178,7 @@ class TextSplitter:
     
     def _count_tokens(self, text: str) -> int:
         """
-        Count tokens in text using tiktoken.
+        Count tokens in text using tiktoken or fallback.
         
         Args:
             text: Text to count tokens for
@@ -129,11 +186,15 @@ class TextSplitter:
         Returns:
             Number of tokens
         """
-        try:
-            return len(self.tokenizer.encode(text))
-        except Exception as e:
-            logger.warning(f"Error counting tokens: {e}")
-            # Fallback to character-based estimation
+        if self.tokenizer:
+            try:
+                return len(self.tokenizer.encode(text))
+            except Exception as e:
+                logger.warning(f"Error counting tokens: {e}")
+                # Fallback to character-based estimation
+                return len(text) // 4
+        else:
+            # Character-based estimation (rough approximation)
             return len(text) // 4
     
     def get_chunk_statistics(self, chunks: List[Dict[str, any]]) -> Dict[str, any]:

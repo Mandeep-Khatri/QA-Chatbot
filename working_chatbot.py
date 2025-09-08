@@ -35,12 +35,12 @@ def get_ai_response(model, question):
 def main():
     """Main Streamlit application."""
     st.set_page_config(
-        page_title="Google AI Studio by Mandy",
+        page_title="🤖 Gemini by Mandy",
         page_icon="🤖",
         layout="wide"
     )
     
-    st.title("🤖 Google AI Studio by Mandy")
+    st.title("🤖 Gemini by Mandy")
     st.markdown("**Mandy's Q&A Chatbot for Course Materials** - Ask questions and get AI-powered answers!")
     
     # Initialize Gemini
@@ -48,7 +48,7 @@ def main():
     
     # Sidebar
     with st.sidebar:
-        st.header("🤖 Google AI Studio by Mandy")
+        st.header("🤖 Gemini by Mandy")
         st.markdown("---")
         st.header("📊 System Information")
         
@@ -87,6 +87,23 @@ def main():
     # Chat interface
     st.success("🎉 Ready to chat! Ask me anything!")
     
+    # Query suggestions
+    st.subheader("💡 Quick Suggestions")
+    suggestions = [
+        "What is machine learning?",
+        "Explain neural networks", 
+        "How does AI work?",
+        "What are the benefits of automation?",
+        "Tell me about data science"
+    ]
+    
+    cols = st.columns(2)
+    for i, suggestion in enumerate(suggestions):
+        with cols[i % 2]:
+            if st.button(suggestion, key=f"suggest_{suggestion}"):
+                user_input = suggestion
+                st.session_state.user_input = user_input
+    
     # Initialize chat history
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -97,7 +114,15 @@ def main():
             st.markdown(message["content"])
     
     # Chat input
-    if prompt := st.chat_input("Ask me anything about your course materials or any topic!"):
+    prompt = st.session_state.get("user_input", "")
+    if prompt:
+        st.session_state.user_input = ""  # Clear the input
+    elif prompt := st.chat_input("Ask me anything about your course materials or any topic!"):
+        pass
+    else:
+        prompt = None
+    
+    if prompt:
         # Add user message to chat history
         st.session_state.messages.append({"role": "user", "content": prompt})
         
@@ -119,7 +144,7 @@ def main():
     
     # Footer
     st.markdown("---")
-    st.markdown("**Built by Mandy** | Powered by Gemini 1.5 Flash")
+    st.markdown("**Built by Mandeep Khatri** | Powered by Gemini 1.5 Flash | Enhanced with Smart Features 🚀")
 
 if __name__ == "__main__":
     main()
