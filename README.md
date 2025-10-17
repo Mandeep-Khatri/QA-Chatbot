@@ -34,6 +34,30 @@ A comprehensive, feature-rich Q&A chatbot **by Mandy** using Python, Gemini 1.5 
 - **Analytics Dashboard**: Real-time usage statistics and insights
 - **Export Capabilities**: Download conversations and data
 - **High Accuracy**: Achieves 85% manual QA accuracy
+- **🎤 Voice Features**: Microphone input and text-to-speech output
+
+## 🎤 **Voice-Enabled Features**
+
+The chatbot now includes advanced voice capabilities:
+
+### **Voice Input/Output:**
+- 🎤 **Microphone Recording**: Speak your questions directly
+- 🔊 **Text-to-Speech**: Listen to AI responses with natural voice
+- 🎯 **Speech Recognition**: Automatic speech-to-text conversion
+- ⚙️ **Voice Settings**: Toggle voice features on/off
+- 🎵 **Audio Playback**: Built-in audio player for responses
+
+### **Voice Setup:**
+```bash
+# Install voice dependencies (macOS)
+brew install portaudio
+
+# Install voice packages
+pip install -r voice_requirements.txt
+
+# Run voice-enabled chatbot
+streamlit run voice_chatbot.py
+```
 
 ## 🛠️ Installation
 
