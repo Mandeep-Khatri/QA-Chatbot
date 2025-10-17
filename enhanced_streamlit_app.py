@@ -27,7 +27,7 @@ except ImportError:
     
     def get_gemini_model():
         genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
-        return genai.GenerativeModel('gemini-1.5-flash')
+        return genai.GenerativeModel('gemini-2.0-flash')
     
     def generate_response(model, query, context=""):
         prompt = f"{context}\n\nUser: {query}\nAssistant:"

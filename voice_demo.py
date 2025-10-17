@@ -129,7 +129,7 @@ def test_gemini_api():
         import google.generativeai as genai
         
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-2.0-flash')
         
         # Test with a simple query
         response = model.generate_content("Say hello in one word")
